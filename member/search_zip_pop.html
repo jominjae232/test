@@ -1,0 +1,147 @@
+<html>
+<head>
+<title>Search ZipCode</title>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr"> 
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+
+
+<body bgcolor=white leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<table border=0 cellspacing=1 cellpadding=4 width=100% bgcolor=black height=100%>
+
+<tr bgcolor=777777>
+  <td align=center><b><font color=white>우편번호 검색 </b>(Search Zipcode)</td>
+</tr>
+<tr bgcolor=white>
+  <td align=center height=100%>
+  우편번호를 검색합니다.<br>
+  찾고자 하는 동의 이름을 입력하여 주십시요.<br>
+  ( 예: <b>대연동</b>    또는    <b>대연1동</b> )<br><br>
+  
+  <input type="text" name="search" value="" size="20" id="data_search" class="input" style="cursor:text;">
+
+  <input type="button" onclick="place_chk()" value="Search" class="button">
+
+  <input type="button" value="Close" class="close" onclick="window.close()">
+
+  <input type="hidden" value="" id="userZipcode" name="zipcode">
+  <input type="hidden" value="" id="zipload" name="zipload">
+  <input type="hidden" value="" id="zipaddr" name="zipaddr">
+
+  <button onclick="place_ok()" id="place_s" style="display:none"></button>
+
+<br><br><br>
+   </td>
+</tr>
+
+</table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script class="text/javascript">
+
+	function place_chk() {
+
+	if($("#userZipcode").val() == '') {
+	
+	var place = $("#data_search").val();
+
+    new daum.Postcode({
+        oncomplete: function(data) {
+			document.getElementById('userZipcode').value = data.zonecode;
+			document.getElementById('zipaddr').value = data.address;
+			document.getElementById('zipload').value = data.roadnameCode;
+        }
+    }).open({ q: place });
+	alert('serch 버튼을 한 번 더 눌러주세요.');
+
+	} else if($("#userZipcode").val() != '') {
+		
+		var zipcode = $("#userZipcode").val();
+		
+		/*
+		$.ajax({
+				url				: './regist_step_04.html',
+				data			: {
+					param1		: zipcode,
+					param2		: '20'
+				},
+				type			: 'POST',
+				dataType		: 'json',
+				success		: function(result) {
+					if(result.success == false) {
+						alert(result.msg);
+						return;
+					}
+					alert(result.data);
+				}
+			});
+		*/
+
+		$.ajax({
+			url: './regist_step_04.html',
+			type: 'POST',
+			data: {"zipcode": zipcode,
+				"zipcodes": "zipcodes"},
+			success: function (data) {
+					//alert('데이터 전송 O');
+				}
+		});
+		
+	}
+
+	};
+	
+</script>
+
+
+
+<!--
+<body bgcolor=white leftmargin='0' topmargin='0' marginwidth='0' marginheight='0'>
+<table border=0 cellspacing=1 cellpadding=4 width=100% bgcolor=black>
+<tr bgcolor=777777>
+  <td align=center><b><font color=white> + 아래의 주소목록에서 선택하여 주십시오. +</td>
+</tr>
+</table>
+<table border=0 cellspacing=1 cellpadding=2 width=100% bgcolor=888888>
+<tr align=center bgcolor=dddddd>
+  <td width=25%>우편번호</td>
+  <td width=75%>주소</td>
+</tr>
+<tr bgcolor=white>
+<td bgcolor=white align=center height=25><span>123-123</span></td>
+<td bgcolor=white align=left height=25 style=cursor:pointer;>&nbsp;&nbsp;<span>서울특별시 강남구 역삼동</span>&nbsp;</td>
+</tr>
+<tr bgcolor=white>
+<td bgcolor=white align=center height=25><span>123-123</span></td>
+<td bgcolor=white align=left height=25 style=cursor:pointer;>&nbsp;&nbsp;<span>서울특별시 강남구 역삼동</span>&nbsp;</td>
+</tr>
+<tr bgcolor=white>
+<td bgcolor=white align=center height=25><span>123-123</span></td>
+<td bgcolor=white align=left height=25 style=cursor:pointer;>&nbsp;&nbsp;<span>서울특별시 강남구 역삼동</span>&nbsp;</td>
+</tr>
+<tr bgcolor=white>
+<td bgcolor=white align=center height=25><span>123-123</span></td>
+<td bgcolor=white align=left height=25 style=cursor:pointer;>&nbsp;&nbsp;<span>서울특별시 강남구 역삼동</span>&nbsp;</td>
+</tr>
+</table><br>
+<div align=center><a href=# onclick=history.go(-1)><font color=black>뒤로가기</a> <font color=bbbbbb>|</font> <a href=# onclick=window.close()><font color=black>창 닫기</a>
+-->
+
+<!--
+<body onload=move() OnUnload='write2_close();' bgcolor=white leftmargin='0' topmargin='0' marginwidth='0' marginheight='0'>
+<table border=0 cellspacing=1 cellpadding=4 width=100% bgcolor=black height=100%>
+<form name=write2>
+<tr bgcolor=777777>
+  <td align=center><b><font color=white>우편번호 입력 </b>(Insert Zipcode)</td>
+</tr>
+<tr bgcolor=white>
+  <td align=center height=100%>
+  나머지 주소 부분을 입력 하신후 확인을 눌러 주십시오.<br><br>
+  <? echo "$juso"?><br>
+  <input type=text name=juso2 class='input' size=40><input type='button' value='확 인' class='submit' name=p onclick=write2_close()>
+</form>
+</table>
+-->
+
+</body>
+</html>

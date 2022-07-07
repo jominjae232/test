@@ -1,0 +1,613 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>해커스패스 통합사이트</title>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet"  type="text/css" href="/css/default.css" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="/js/integrate.js"></script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="header">
+			<p class="logo"><img src="/img/integrate/logo.gif" alt="해커스패스" /></p>
+			<div class="topmenu">
+				<a href="#dialog" name="modal"><img src="/img/integrate/top_icon01.gif" alt="로그인" /></a>
+				<!--<a href="#"><img src="/img/integrate/top_icon01_1.gif" alt="로그아웃" /></a>-->
+				<img src="/img/integrate/top_iconbar.gif" alt="|" class="bar" />
+				<a href="#"><img src="/img/integrate/top_icon02.gif" alt="회원가입" /></a>
+				<!--<a href="#"><img src="/img/integrate/top_icon02_1.gif" alt="개인정보 수정" /></a>-->
+				<img src="/img/integrate/top_iconbar.gif" alt="|" class="bar" />
+				<a href="#"><img src="/img/integrate/top_icon03.gif" alt="홈" /></a>
+				<img src="/img/integrate/top_iconbar.gif" alt="|" class="bar" />
+				<a href="#"><img src="/img/integrate/top_icon04.gif" alt="시작페이지로 추가" /></a>
+				<img src="/img/integrate/top_iconbar.gif" alt="|" class="bar" />
+				<a href="#"><img src="/img/integrate/top_icon05.gif" alt="즐겨찾기 추가" /></a>
+				<a href="#" class="family_site"><img src="/img/integrate/img_familysite.gif" alt="해커스 패밀리사이트" /></a>
+				<ul class="family_link">
+					<li><a href="http://www.hackerspass.com/" target="_blank">해커스 패스ㅣ공무원</a></li>
+					<li><a href="#" target="_blank">해커스 패스ㅣ금&nbsp;&nbsp;&nbsp;융</a></li>
+					<li><a href="http://www.hackers.co.kr" target="_blank">해커스토익</a></li>
+					<li><a href="http://www.hackers.ac" target="_blank">해커스어학원</a></li>
+					<li><a href="http://www.champstudy.com" target="_blank">동영상강의</a></li>
+					<li><a href="http://www.hackers.co.kr" target="_blank">해커스텝스</a></li>
+					<li><a href="http://www.gohackers.com" target="_blank">해커스토플</a></li>
+					<li><a href="http://www.jumphackers.com" target="_blank">해커스수능</a></li>
+					<li><a href="http://recruit.hackers.com/" target="_blank">인재채용</a></li>
+					<li><a href="#" target="_blank">해커스교육그룹</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="container">
+			<div class="lnb">
+				<h3><img src="/img/left/h3_join.gif" alt="회원가입" /></h3>
+				<ul class="lnb_join">
+					<li class="on"><a href="#" class="menu01"><span>통합회원가입</span></a></li>
+					<li><a href="#" class="menu02"><span>아이디/비밀번호찾기</span></a></li>
+					<li><a href="#" class="menu03"><span>개인정보처리방침</span></a></li>
+					<li><a href="#" class="menu04"><span>이용약관</span></a></li>
+				</ul>
+			</div>
+			<form action="./regist.php" method="POST">
+			<input type="hidden" name="type" value=<?=$_POST['type']?>>
+			<div id="sub" class="content">
+				<h2><img src="/img/member/h2_join_all.gif" alt="" /></h2>
+				<div class="depth"><span>Home &gt; 통합회원가입 &gt; <em>회원정보입력</em></span></div>
+				<div class="con join_wrap">
+					<div class="top_img"><img src="/img/member/new2013/top_step04.gif" alt="" /></div>
+					<h3 class="mgb10"><img src="/img/member/h3_baseInfo.gif" alt="기본정보입력" /></h3>
+					<p class="referText"><img src="/img/member/icon_redStar.gif" alt="*" /> 표시 부분은 필수 입력사항입니다.</p>
+					<table cellpadding="0" cellspacing="0" border="0" class="basicType mgb30">
+						<colgroup>
+							<col width="136px" />
+							<col width="*" />
+						</colgroup>
+						<tbody>
+							<tr>
+								<th><span class="must">이름</span></th>
+								<td><input type="text" readonly required class="text" name="mb_name" value=<?=$_POST['mb_name']?>> </td>
+							</tr>
+							<tr>
+								<th><span class="must">닉네임</span></th>
+								<td>
+									<input type="text" name="mb_nick" id="nick" required class="text">
+									
+									<span id="nick_check"><img src="/img/member/btn_overlap.gif" alt="중복확인" /></span>
+								</td>
+							</tr>
+
+							<script class="text/javascript">
+								$('#nick_check').click(function() {
+
+									var chk_vals = $("#nick").val();
+									if(chk_vals.length <= 0) {
+										alert('1글자 이상으로 설정해주세요.');
+									} else {
+
+									var reg_mb_nick= $('#nick').val();
+									$.ajax({
+										type: 'post',
+										url: './nick_check.php',
+										data: { reg_mb_nick: reg_mb_nick},
+										success: function(data) {
+											var gubun = data.substr(0,1);
+											var reg_mbnick = data.substr(2,12);
+
+											if (gubun == 'Y') {
+												alert("동일한 닉네임이 존재합니다. 다른 닉네임을 입력해주세요.");
+												$("#client_nick_last_chk").val('1');
+												$("#nick").focus();
+											} else {
+											    if(reg_mbnick == "" || reg_mbnick.length < 3) {
+													alert("정상적인 닉네임을 입력해 주시기 바랍니다.");
+												    $("#nick").focus();
+											    } else {
+												    alert("사용가능한 닉네임입니다.");
+													$("#client_nick_last_chk").val('0');
+												    $("#reg_mb_password").focus();
+											    }
+											}
+										 }
+									 });
+									 }
+								 });
+							</script>
+
+							<input type="hidden" value="1" id="client_nick_last_chk">
+
+							<tr>
+								<th><span class="must">성별</span></th>
+								<td>
+									<input <?php if($_POST['mb_gender'] == 'man') { echo "checked"; } else if ($_POST['mb_gender'] == 'wmn') { echo "disabled"; } ?> type="radio" name="mb_gender" onclick="gender()" value="man" class="radio"><label class="mgr30">남</label>
+									<input <?php if($_POST['mb_gender'] == 'wmn') { echo "checked"; } else if ($_POST['mb_gender'] == 'man') { echo "disabled"; } ?> type="radio" name="mb_gender" onclick="gender()" value="wmn" class="radio"><label>여</label>
+								</td>
+							</tr>
+
+							<tr>
+								<th><span class="must">생년월일</span></th>
+								<td>
+									<select required name="y_birth" >
+										<option value=<?=$_POST['y_birth']?>><?=$_POST['y_birth']?></option>
+									</select>
+									<label class="mgr10">년</label>
+									<select required name="m_birth" >
+										<option value=<?=$_POST['m_birth']?>><?=$_POST['m_birth']?></option>
+									</select>
+									<label class="mgr10">월</label>
+									<select required name="d_birth" >
+										<option value=<?=$_POST['d_birth']?>><?=$_POST['d_birth']?></option>
+									</select>
+									<label>일</label>
+								</td>
+							</tr>
+							<tr>
+								<th><span class="must">아이디</span></th>
+								<td>
+									<input type="text" name="mb_id" id="id" required class="text" maxlength="10"/>
+									<span id="id_check"><img src="/img/member/btn_overlap.gif" alt="중복확인" /></span>
+									<span class="tip">(4~10자 영문, 숫자만 가능합니다.)</span>
+								</td>
+							</tr>
+
+							<script class="text/javascript">
+								
+
+								$('#id_check').click(function() {
+
+									var chk_val = $("#id").val();
+
+									if(chk_val.length<4) {
+										alert('4~10자 영문, 숫자만 가능합니다.');
+									} else {
+
+									var noEngRule = /^[a-zA-Z0-9]*$/;
+									
+									if(!noEngRule.test($("input[name='mb_id']").val())) {
+										alert("4~10자 영문, 숫자만 가능합니다.");
+									} else {
+									
+									var reg_mb_id= $('#id').val();
+									$.ajax({
+										type: 'post',
+										url: './id_check.php',
+										data: { reg_mb_id: reg_mb_id},
+										success: function(data) {
+											var gubun = data.substr(0,1);
+											var reg_mbid = data.substr(2,12);
+
+											if (gubun == 'Y') {
+												alert("동일한 아이디가 존재합니다. 다른 아이디를 입력해주세요.");
+												$("#client_id_last_chk").val('1');
+												$("#id").focus();
+											} else {
+												    alert("사용가능한 아이디입니다.");
+													$("#client_id_last_chk").val('0');
+												    $("#reg_mb_password").focus();
+											}
+										 }
+									 });
+									
+									}
+									}
+
+									return false;
+								 
+								 });
+							</script>
+
+							<input type="hidden" value="1" id="client_id_last_chk">
+
+							<tr>
+								<th><span class="must">비밀번호</span></th>
+
+								<td>
+								
+								<input type="password" name="pass" id="pass" class="text"/>
+								<span id="PASSWORD_USABILITY"><img src="/img/member/btn_overlap.gif" alt="사용확인" /></span>
+								<span class="tip">(비밀번호는 4~32자 영문+숫자 조합만 가능합니다.)</span>
+
+								</td>
+								
+							</tr>
+							<script class="text/javascript">
+								 $('#PASSWORD_USABILITY').click(function() {
+							
+									var pass = $("#pass").val();
+									var noEngRule = /^(?=.*[a-zA-Z])(?=.*[0-9]).{4,32}$/;
+									
+									if(pass.length >= 33 || pass.length <= 3 || !noEngRule.test($("input[name='pass']").val())) {
+										alert('비밀번호는 4~32자 영문+숫자 조합만 가능합니다.');
+									}else {
+										alert('사용 가능한 비밀번호입니다.');
+									}
+							
+								});
+							</script>
+							<tr>
+								<th><span class="must">비밀번호확인</span></th>
+								<td><input type="password" name="pass_chk" id="pass_chk" class="text" /></td>
+							</tr>
+							
+							<tr>
+								<th><span class="must">e-mail주소</span></th>
+								<td>
+									<input type="text" name="f_mail" required class="text"/> @ <input required name="t_mail" value="" id="mails" type="text" class="text"/>
+
+									<select onchange="mail_chk(this.value)" id="mail_type" style="margin-right:5px;">
+										<option value="직접입력">직접입력</option>
+										<option value="chol.com">chol.com</option>
+										<option value="citizen.seoul.kr">citizen.seoul.kr</option>
+										<option value="cyworld.com">cyworld.com</option>
+										<option value="daum.net">daum.net</option>
+										<option value="dreamwiz.com">dreamwiz.com</option>
+										<option value="empas.com">empas.com</option>
+										<option value="freechal.com">freechal.com</option>
+										<option value="gmail.com">gmail.com</option>
+										<option value="googlemail.com">googlemail.com</option>
+										<option value="hanafos.com">hanafos.com</option>
+										<option value="hanmail.net">hanmail.net</option>
+										<option value="hanmir.com">hanmir.com</option>
+										<option value="kakao.com">kakao.com</option>
+										<option value="korea.kr">korea.kr</option>
+										<option value="live.com">live.com</option>
+										<option value="lycos.co.kr">lycos.co.kr</option>
+										<option value="msn.com">msn.com</option>
+										<option value="mail.jason.pe.kr">mail.jason.pe.kr</option>
+										<option value="narasarang.or.kr">narasarang.or.kr</option>
+										<option value="nate.com">nate.com</option>
+										<option value="naver.com">naver.com</option>
+										<option value="netsgo.com">netsgo.com</option>
+										<option value="netian.com">netian.com</option>
+										<option value="outlook.com">outlook.com</option>
+										<option value="paran.com">paran.com</option>
+										<option value="tistory.com">tistory.com</option>
+										<option value="yahoo.com">yahoo.com</option>
+									</select>
+									
+									<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+									<script class="text/javascript">
+										function mail_chk(mail_type) {								
+
+											if(mail_type == '직접입력') {
+												$("#mails").val('');
+												document.getElementById('mails').readOnly = false;
+											} else {
+												$("#mails").val(mail_type);
+												document.getElementById('mails').readOnly = true;
+											}
+										}
+									</script>
+
+									<input name="sms_ok" value="ok" type="checkbox" class="checkbox" /><label>수신동의</label>
+									<p class="tip">*패스닷컴에서 제공하는 유용한 정보를 받아 볼 수 있습니다.</p>
+									<p class="icon_check">[직접입력]을 통해 메일 계정을 입력시 : 메일이 정상적으로 수신되지 않을 수 있습니다.</p>
+									<p class="icon_check">Hotmail, Gmail 이용시 : 메일이 도착하지 않으면 [스팸 편지함]을 확인 해 주시기 바랍니다.</p>
+								</td>
+							</tr>
+							<tr>
+								<th><span class="must">휴대폰번호</span></th>
+								<td>
+									<select name="f_tell">
+										<option value=<?=$_POST['first_tell']?>><?=$_POST['first_tell']?></option>
+									</select>
+									- <input type="text" name="t_tell" readonly value=<?=$_POST['two_tell']?> required class="phone">
+									- <input name="tt_tell" value=<?=$_POST['third_tell']?> readonly type="text" required class="phone">
+									<p class="tip">* 패스닷컴에서 제공하는 유용한 정보를 받아 볼 수 있습니다.</p>
+								</td>
+							</tr>
+							<?php if($_POST['type'] == 2) { ?>
+							<tr>
+								<th><span class="must">부모님 연락처</span></th>
+								<td>
+									<select name="f_f_tell">
+										<option value="010">010</option>
+										<option value="02">02</option>
+										<option value="031">031</option>
+										<option value="032">032</option>
+										<option value="033">033</option>
+										<option value="041">041</option>
+										<option value="042">042</option>
+										<option value="043">043</option>
+										<option value="044">044</option>
+										<option value="051">051</option>
+										<option value="052">052</option>
+										<option value="053">053</option>
+										<option value="054">054</option>
+										<option value="055">055</option>
+										<option value="061">061</option>
+										<option value="062">062</option>
+										<option value="063">063</option>
+										<option value="064">064</option>
+									</select>
+									- <input type="text" name="f_t_tell" value="" required class="phone">
+									- <input type="text" name="f_tt_tell" value="" required class="phone">
+								</td>
+							</tr>
+							<?php } ?>
+							<tr>
+								<th><span class="must">집전화번호</span></th>
+								<td>
+									<select>
+										<option>010</option>
+									</select>
+									- <input type="text" class="phone"> - <input type="text" class="phone">
+								</td>
+							</tr>
+							<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+							<tr>
+								<th><span class="must">주소</span></th>
+								<td>
+									<p>
+										<input type="text" value="" placeholder="우편번호" class="zipcode" id="userZipcode"> - 
+										<input type="text" id="ziprode" placeholder="도로명코드" class="zipcode">
+										<span onclick="zip_chk()"><img src="/img/member/btn_zipcode.gif" alt="우편번호 검색" /></span>
+									</p>
+									<p style="margin:5px 0;"><input type="text" id="zipaddr" placeholder="기본주소" class="address"></p>
+									<p><input type="text" placeholder="상세주소" class="address"></p>
+								</td>
+							</tr>
+							<script class="text/javascript">
+								function place() {
+									var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+									window.open("http://localhost/member/search_zip_pop.html", "주소검색", option);
+								}
+							</script>
+							
+							<!-- 다음 주소 검색 코드 -->
+							<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+							<script class="text/javascript">
+							function zip_chk() {
+								new daum.Postcode({
+									oncomplete: function(data) {
+									   document.getElementById('userZipcode').value = data.zonecode;
+									   document.getElementById('zipaddr').value = data.address;
+									   document.getElementById('ziprode').value = data.roadnameCode;
+									}
+								}).open();
+							}
+							</script>
+						</tbody>
+					</table>
+					<h3 class="mgb10"><img src="/img/member/h3_choiceInfo.gif" alt="선택정보입력" /></h3>
+					<table cellpadding="0" cellspacing="0" border="0" class="basicType mgb30">
+						<colgroup>
+							<col width="136px" />
+							<col width="*" />
+						</colgroup>
+						<tbody>
+							<tr>
+								<th>최종학력</th>
+								<td>
+									<select>
+										<option>선택</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th>직업</th>
+								<td>
+									<select name="jobs">
+										<option value="Student">학생</option>
+										<option value="Manager">관리자</option>
+										<option value="Experts and related personnel">전문가 및 관련 종사자</option>
+										<option value="office worker">사무 종사자</option>
+										<option value="service worker">서비스 종사자</option>
+										<option value="salesperson">판매 종사자</option>
+										<option value="simple worker">단순노무 종사자</option>
+										<option value="soldier">군 인</option>
+										<option value="other">기타</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th>가입경로</th>
+								<td>
+									<ul class="inflow">
+										<li class="col1"><input type="radio" class="radio"><label>지인소개</label></li>
+										<li class="col2"><input type="radio" class="radio"><label>해커스사이트(해커스어학원, 고우 해커스 등)</label></li>
+										<li class="col3"><input type="radio" class="radio"><label>홍보물</label></li>
+										<li class="col1"><input type="radio" class="radio"><label>포털사이트 검색</label></li>
+										<li class="col2"><input type="radio" class="radio"><label>기타</label></li>
+									</ul>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<h3 class="mgb30 interest"><img src="/img/member/h3_favorite.gif" alt="관심분야선택" /><span><img src="/img/member/icon_redStar.gif" alt="*" /> 중복선택 가능합니다.</span></h3>
+					<p class="interest"><label><input type="checkbox" /> 공무원</label><label><input type="checkbox" /> 금융</label><label><input type="checkbox" /> 공인중개사</label></p>
+					<h4 class="mgb10"><img src="/img/member/h4_favorite01.gif" alt="공무원시험" /></h4>
+					<p class="referText"><img src="/img/member/icon_redStar.gif" alt="*" /> 관심있는 분야를 선택하시면, 맞춤관리를 받으실 수 있습니다.</p>
+					<table cellpadding="0" cellspacing="0" border="0" class="basicType mgb30">
+						<colgroup>
+							<col width="136px" />
+							<col width="*" />
+						</colgroup>
+						<tbody>
+							<tr>
+								<th>관심직렬</th>
+								<td>
+									<ul class="favor_type">
+										<li><input type="checkbox" class="checkbox" /><label>일반행정직</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>세무직</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>관세직</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>교육행정직</label></li>
+										<li class="end"><input type="checkbox" class="checkbox" /><label>보호관찰직</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>사회복지직</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>외무영사직</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>교정직</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>소년보호직</label></li>
+										<li class="end"><input type="checkbox" class="checkbox" /><label>화공직</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>마약수사직</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>출입국관리직</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>기계직(일반기계)</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>전기직</label></li>
+										<li class="end"><input type="checkbox" class="checkbox" /><label>전송기술직</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>임업직(일반임업)</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>토목직(일반토목)</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>건축직</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>전산직(전산개발)</label></li>
+										<li class="end"><input type="checkbox" class="checkbox" /><label>사서직</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>소방직</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>군무원</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>경찰직</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>감사직</label></li>
+										<li class="end"><input type="checkbox" class="checkbox" /><label>검찰사무직</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>농업직(일반농업)</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>보건직</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>기타</label></li>
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<th>관심지역</th>
+								<td>
+									<ul class="favor_area">
+										<li><input type="checkbox" class="checkbox" /><label>국가직</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>서울시</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>인천시</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>대구시</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>대전시</label></li>
+										<li class="end"><input type="checkbox" class="checkbox" /><label>광주시</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>울산시</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>부산시</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>경기도</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>강원도</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>충북</label></li>
+										<li class="end"><input type="checkbox" class="checkbox" /><label>충남</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>전북</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>전남</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>경북</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>경남</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>제주도</label></li>
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<th>관심과목</th>
+								<td>
+									<ul class="favor_subject">
+										<li><input type="checkbox" class="checkbox" /><label>국어</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>영어</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>한국사</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>수학</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>사회</label></li>
+										<li class="end"><input type="checkbox" class="checkbox" /><label>과학</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>행정학</label></li>
+										<li><input type="checkbox" class="checkbox" /><label>행정법</label></li>
+									</ul>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<h4 class="mgb10"><img src="/img/member/h4_favorite02.gif" alt="금융/기타 자격증" /></h4>
+					<table cellpadding="0" cellspacing="0" border="0" class="basicType mgb30">
+						<colgroup>
+							<col width="136px" />
+							<col width="*" />
+						</colgroup>
+						<tbody>
+							<tr>
+								<th>관심자격증</th>
+								<td>
+									<ul class="favor_license">
+										<li class="col1"><input type="checkbox" class="checkbox" /><label>펀드투자상담사</label></li>
+										<li class="col2"><input type="checkbox" class="checkbox" /><label>증권투자상담사</label></li>
+										<li class="col3"><input type="checkbox" class="checkbox" /><label>파생상품투자상담사</label></li>
+										<li class="col1"><input type="checkbox" class="checkbox" /><label>투자자운용사</label></li>
+										<li class="col2"><input type="checkbox" class="checkbox" /><label>재무위험관리사(국내FRM)</label></li>
+										<li class="col3"><input type="checkbox" class="checkbox" /><label>금융투자분석사</label></li>
+										<li class="col1"><input type="checkbox" class="checkbox" /><label>자산관리사(은행 FP)</label></li>
+										<li class="col2"><input type="checkbox" class="checkbox" /><label>외환전문역 1종</label></li>
+										<li class="col3"><input type="checkbox" class="checkbox" /><label>외환전문역 2종</label></li>
+										<li class="col1"><input type="checkbox" class="checkbox" /><label>은행텔러</label></li>
+										<li class="col2"><input type="checkbox" class="checkbox" /><label>종합자산관리사(IFP)</label></li>
+										<li class="col3"><input type="checkbox" class="checkbox" /><label>변액보험판매관리사</label></li>
+										<li class="col1"><input type="checkbox" class="checkbox" /><label>CFA</label></li>
+										<li class="col2"><input type="checkbox" class="checkbox" /><label>FRM(국제FRM)</label></li>
+										<li class="col3"><input type="checkbox" class="checkbox" /><label>경영지도사</label></li>
+										<li class="col1"><input type="checkbox" class="checkbox" /><label>외환관리사</label></li>
+										<li class="col2"><input type="checkbox" class="checkbox" /><label>무역영어</label></li>
+										<li class="col3"><input type="checkbox" class="checkbox" /><label>국제무역사</label></li>
+										<li class="col1"><input type="checkbox" class="checkbox" /><label>전산세무회계</label></li>
+										<li class="col2"><input type="checkbox" class="checkbox" /><label>기업자금관리사(CTM)</label></li>
+										<li class="col3"><input type="checkbox" class="checkbox" /><label>IFRS관리사</label></li>
+										<li class="col1"><input type="checkbox" class="checkbox" /><label>전산세무 1급</label></li>
+										<li class="col2"><input type="checkbox" class="checkbox" /><label>전산세무 2급</label></li>
+										<li class="col3"><input type="checkbox" class="checkbox" /><label>전산회계 1급</label></li>
+										<li class="col1"><input type="checkbox" class="checkbox" /><label>전산회계 2급</label></li>
+										<li class="col2"><input type="checkbox" class="checkbox" /><label>대기업 인적성(SSAT, DCAT등)</label></li>
+									</ul>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!-- 부동산 자격증 -->
+					<h4 class="mgb10"><img src="/img/member/h4_favorite03.gif" alt="부동산 자격증" /></h4>
+					<table cellpadding="0" cellspacing="0" border="0" class="basicType mgb30">
+						<colgroup>
+							<col width="136px" />
+							<col width="*" />
+						</colgroup>
+						<tbody>
+							<tr>
+								<th height="45">관심자격증</th>
+								<td>
+									<ul class="favor_license">
+										<li class="col4"><input type="checkbox" class="checkbox" /><label>공인중개사</label></li>
+										<li class="col4"><input type="checkbox" class="checkbox" /><label>주택관리사</label></li>
+										<li class="col4"><input type="checkbox" class="checkbox" /><label>경매/공매</label></li>
+										<li class="col4"><input type="checkbox" class="checkbox" /><label>감정평가사</label></li>
+									</ul>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					// 부동산 자격증 끝
+					<div class="btnC"><button onclick="chk_btn()" ><img src="/img/member/btn_join.gif" alt="가입하기"></button></div>
+			</div>
+			</form>
+			
+			<script class="text/javascript">
+				function chk_btn() {
+					var pass_1 = $("#pass").val();
+					var pass_2 = $("#pass_chk").val();
+
+					if(pass_1 != pass_2) {
+						alert('비밀번호 입력 정보가 잘못 되었습니다.');
+						return false;
+					}
+
+					var nick = $("#client_nick_last_chk").val();
+					var id = $("#client_id_last_chk").val();
+					
+					if($nick == '1') {
+						alert("닉네임 중복 체크를 해주세요.");
+					}
+					
+					if(id == '1') {
+						alert("아이디 중복 체크를 해주세요.");
+					}
+
+				}
+			</script>
+		
+		</div>
+		<div class="underBlank"></div>
+		<div id="footer">
+			<p class="logo_footer"><img src="/img/integrate/logo_footer.gif" alt="해커스패스" /></p>
+			<div>
+				<p class="policy">
+					<a href="#"><img src="/img/integrate/footer_icon01.gif" alt="이용약관" /></a>
+					<img src="/img/integrate/footer_iconbar.gif" alt="" class="bar" />
+					<a href="#"><img src="/img/integrate/footer_icon02.gif" alt="개인정보취급방침" /></a>
+					<img src="/img/integrate/footer_iconbar.gif" alt="" class="bar" />
+					<a href="#"><img src="/img/integrate/footer_icon03.gif" alt="제휴문의" /></a>
+				</p>
+				<address><img src="/img/integrate/address.gif" alt="서울시 서초구 서초동 1316-15 현대성우빌딩 203호|TEL.02-554-7272|FAX.02-554-0551|사업자등록번호 120-87-09984|(주)챔프스터디 대표이사.장경원|개인정보관리책임자.김병철|COPYRIGHT ⓒ 2012 HACKERSPASS ALL RIGHTS RESERVED" /></address>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
