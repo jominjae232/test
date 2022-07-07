@@ -37,8 +37,14 @@ session_start();
 //var_dump($_SESSION);
 ?>
 <body>
+
 <div id="wrapper">
-	
+
+<?php
+if(!isset($_SESSION['mb_name']) && isset($_SESSION['mb_id'])) {
+	unset($_SESSION['mb_id']);
+}
+?>
 	
 <div id="header">
 
@@ -70,7 +76,7 @@ session_start();
 			<img src="/img/integrate/top_iconbar.gif" alt="|" class="bar" />
 		<a href="./member/regist_step_01.html"><img src="/img/integrate/top_icon02.gif" alt="회원가입" /></a>
 			<img src="/img/integrate/top_iconbar.gif" alt="|" class="bar" />
-		<?php } else { ?>
+		<?php } else if($_SESSION['mb_id'] != '' && $_SESSION['mb_name'] != '') { ?>
 		<button onclick="log_out()">로그아웃</button>
 
 			<script class="text/javascript">
@@ -548,8 +554,8 @@ session_start();
 					<input type="checkbox" class="checkbox"><label><img src="/img/integrate/login_textSave.gif" alt="아이디저장" /></label>
 				</div>
 				<div class="btnJoin">
-					<a href="#"><img src="/img/integrate/btn_login_join.gif" alt="회원가입"/></a>
-					<a href="#"><img src="/img/integrate/btn_login_find.gif" alt="아이디/비밀번호찾기"/></a>
+					<a href="./member/regist_step_01.html"><img src="/img/integrate/btn_login_join.gif" alt="회원가입"/></a>
+					<a href="./member/find_id_phone.html"><img src="/img/integrate/btn_login_find.gif" alt="아이디/비밀번호찾기"/></a>
 				</div>
 			</form>
 			</div>

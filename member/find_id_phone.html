@@ -1,44 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>해커스패스 통합사이트</title>
-<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<link rel="stylesheet"  type="text/css" href="/css/default.css" />
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript" src="/js/integrate.js"></script>
-</head>
+<?php include("./header.php")?>
 <body>
-	<div id="wrapper">
-		<div id="header">
-			<p class="logo"><img src="/img/integrate/logo.gif" alt="해커스패스" /></p>
-			<div class="topmenu">
-				<a href="#dialog" name="modal"><img src="/img/integrate/top_icon01.gif" alt="로그인" /></a>
-				<!--<a href="#"><img src="/img/integrate/top_icon01_1.gif" alt="로그아웃" /></a>-->
-				<img src="/img/integrate/top_iconbar.gif" alt="|" class="bar" />
-				<a href="#"><img src="/img/integrate/top_icon02.gif" alt="회원가입" /></a>
-				<!--<a href="#"><img src="/img/integrate/top_icon02_1.gif" alt="개인정보 수정" /></a>-->
-				<img src="/img/integrate/top_iconbar.gif" alt="|" class="bar" />
-				<a href="#"><img src="/img/integrate/top_icon03.gif" alt="홈" /></a>
-				<img src="/img/integrate/top_iconbar.gif" alt="|" class="bar" />
-				<a href="#"><img src="/img/integrate/top_icon04.gif" alt="시작페이지로 추가" /></a>
-				<img src="/img/integrate/top_iconbar.gif" alt="|" class="bar" />
-				<a href="#"><img src="/img/integrate/top_icon05.gif" alt="즐겨찾기 추가" /></a>
-				<a href="#" class="family_site"><img src="/img/integrate/img_familysite.gif" alt="해커스 패밀리사이트" /></a>
-				<ul class="family_link">
-					<li><a href="http://www.hackerspass.com/" target="_blank">해커스 패스ㅣ공무원</a></li>
-					<li><a href="#" target="_blank">해커스 패스ㅣ금&nbsp;&nbsp;&nbsp;융</a></li>
-					<li><a href="http://www.hackers.co.kr" target="_blank">해커스토익</a></li>
-					<li><a href="http://www.hackers.ac" target="_blank">해커스어학원</a></li>
-					<li><a href="http://www.champstudy.com" target="_blank">동영상강의</a></li>
-					<li><a href="http://www.hackers.co.kr" target="_blank">해커스텝스</a></li>
-					<li><a href="http://www.gohackers.com" target="_blank">해커스토플</a></li>
-					<li><a href="http://www.jumphackers.com" target="_blank">해커스수능</a></li>
-					<li><a href="http://recruit.hackers.com/" target="_blank">인재채용</a></li>
-					<li><a href="#" target="_blank">해커스교육그룹</a></li>
-				</ul>
-			</div>
-		</div>
+	
 		<div id="container">
 			<div class="lnb">
 				<h3><img src="/img/left/h3_join.gif" alt="회원가입" /></h3>
@@ -55,38 +19,80 @@
 				<div class="con join_wrap">
 					<h3 class="mgb10"><img src="/img/member/h3_id01.gif" alt="아이디찾기" /></h3>
 					<div class="idCheck_wrap mgb50">
+
+						<form action="./search_id_phone.php" method="POST">
 						<div class="left">
 							<h4 class="mgb30">
 								<input type="radio" class="radio" checked /><label><img src="/img/member/text_check11.gif" alt="핸드폰번호 인증" /></label>
-								<input type="radio" class="radio" /><label><img src="/img/member/text_check12.gif" alt="이메일 인증" /></label>
+								<input type="radio" class="radio" onclick="page_mail()" /><label><img src="/img/member/text_check12.gif" alt="이메일 인증" /></label>
 							</h4>
 							<div class="ID_phone mgb20">
-								<p><span><img src="/img/member/text_check01.gif" alt="이름"/></span><input type="text" class="name"/></p>
+								<p>
+								<span><img src="/img/member/text_check01.gif" alt="이름"/></span>
+								<input type="text" name="mb_name" class="name"/>
+								</p>
 								<p>
 									<span><img src="/img/member/text_check02.gif" alt="생년월일"/></span>
-									<select>
-										<option>2012</option>
+									<select name="y_birthday">
+										<?php for($i=2022;$i>=1945;$i--) { ?>
+											<option value=<?=$i?>><?=$i?></option>
+										<?php } ?>
 									</select>
 									<label>년</label>
-									<select>
-										<option>01</option>
+									<select name="m_birthday">
+										<?php for($i=1;$i<=12;$i++) { ?>
+
+											<?php if($i<10) { ?>
+												<option value=0<?php echo $i; ?>><?php echo '0'.$i?></option>
+											<?php } ?>
+
+											<?php if($i>=10) { ?>
+												<option value=<?php echo $i; ?>><?php echo $i; ?></option>
+											<?php } ?>
+
+										<?php } ?>
 									</select>
 									<label>월</label>
-									<select>
-										<option>10</option>
+									<select name="d_birthday">
+										<?php for($i=1;$i<=31;$i++) { ?>
+											<?php if($i<10) { ?>
+												<option value=0<?php echo $i?>><?php echo '0'.$i; ?></option>
+											<?php }	else { ?>
+												<option value=<?php echo $i?>><?php echo $i; ?></option>
+											<?php } ?>
+										<?php } ?>
 									</select>
 									<label>일</label>
 								</p>
 								<p>
 									<span><img src="/img/member/text_check04.gif" alt="핸드폰번호"/></span>
-									<select>
-										<option>010</option>
+									<select name="f_tell">
+										<option value="010">010</option>
+										<option value="02">02</option>
+										<option value="031">031</option>
+										<option value="032">032</option>
+										<option value="033">033</option>
+										<option value="041">041</option>
+										<option value="042">042</option>
+										<option value="043">043</option>
+										<option value="044">044</option>
+										<option value="051">051</option>
+										<option value="052">052</option>
+										<option value="053">053</option>
+										<option value="054">054</option>
+										<option value="055">055</option>
+										<option value="061">061</option>
+										<option value="062">062</option>
+										<option value="063">063</option>
+										<option value="064">064</option>
 									</select>
-									- <input type="text" class="phone" /> - <input type="text" class="phone"/>
+									- <input type="text" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" name="t_tell" maxlength="4" class="phone" /> - <input type="text" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" name="tt_tell" maxlength="4" class="phone"/>
 								</p>
 							</div>
-							<div class="btnC"><a href="#"><img src="/img/member/btn_confirm2.gif" alt="확인"></a></div>
+							<div class="btnC"><button><img src="/img/member/btn_confirm2.gif" alt="확인"></button></div>
 						</div>
+						</form>
+
 						<div class="right">
 							<h4 class="mgb30"><img src="/img/member/h4_ipin02.gif" alt="아이핀인증" /></h4>
 							<div class="ipinCheck mgb20">
@@ -99,39 +105,85 @@
 					</div>
 					<h3 class="mgb10"><img src="/img/member/h3_password01.gif" alt="비밀번호찾기" /></h3>
 					<div class="idCheck_wrap">
+
+						<form action="./search_pass_phone.php" method="POST">
 						<div class="left">
 							<h4 class="mgb30">
 								<input type="radio" class="radio" checked /><label><img src="/img/member/text_check11.gif" alt="핸드폰번호 인증" /></label>
-								<input type="radio" class="radio" /><label><img src="/img/member/text_check12.gif" alt="이메일 인증" /></label>
+								<input type="radio" class="radio" onclick="page_mail()"/><label><img src="/img/member/text_check12.gif" alt="이메일 인증" /></label>
 							</h4>
+
+							<script class="text/javascript">
+								function page_mail () {
+									location.href="./find_id_mail.html"
+								}
+							</script>
+							
 							<div class="PW_phone mgb20">
-								<p><span><img src="/img/member/text_check13.gif" alt="아이디"/></span><input type="text" class="name"/></p>
-								<p><span><img src="/img/member/text_check01.gif" alt="이름"/></span><input type="text" class="name"/></p>
+								<p><span><img src="/img/member/text_check13.gif" alt="아이디"/></span><input type="text" name="mb_id" class="name"/></p>
+								<p><span><img src="/img/member/text_check01.gif" alt="이름"/></span><input type="text" name="mb_name" class="name"/></p>
 								<p>
 									<span><img src="/img/member/text_check02.gif" alt="생년월일"/></span>
-									<select>
-										<option>2012</option>
+									<select name="y_birthday">
+									<?php for($i=2022;$i>=1945;$i--) { ?>
+										<option value=<?=$i?>><?=$i?></option>
+									<?php } ?>
 									</select>
 									<label>년</label>
-									<select>
-										<option>01</option>
+									<select name="m_birthday">
+										<?php for($i=1;$i<=12;$i++) { ?>
+
+											<?php if($i<10) { ?>
+												<option value=0<?php echo $i; ?>><?php echo '0'.$i?></option>
+											<?php } ?>
+
+											<?php if($i>=10) { ?>
+												<option value=<?php echo $i; ?>><?php echo $i; ?></option>
+											<?php } ?>
+
+										<?php } ?>
 									</select>
 									<label>월</label>
-									<select>
-										<option>10</option>
+									<select name="d_birthday">
+										<?php for($i=1;$i<=31;$i++) { ?>
+											<?php if($i<10) { ?>
+												<option value=0<?php echo $i?>><?php echo '0'.$i; ?></option>
+											<?php }	else { ?>
+												<option value=<?php echo $i?>><?php echo $i; ?></option>
+											<?php } ?>
+										<?php } ?>
 									</select>
 									<label>일</label>
 								</p>
 								<p>
 									<span><img src="/img/member/text_check04.gif" alt="핸드폰번호"/></span>
-									<select>
+									<select name="f_tell">
 										<option>010</option>
+										<option value="02">02</option>
+										<option value="031">031</option>
+										<option value="032">032</option>
+										<option value="033">033</option>
+										<option value="041">041</option>
+										<option value="042">042</option>
+										<option value="043">043</option>
+										<option value="044">044</option>
+										<option value="051">051</option>
+										<option value="052">052</option>
+										<option value="053">053</option>
+										<option value="054">054</option>
+										<option value="055">055</option>
+										<option value="061">061</option>
+										<option value="062">062</option>
+										<option value="063">063</option>
+										<option value="064">064</option>
 									</select>
-									- <input type="text" class="phone" /> - <input type="text" class="phone"/>
+									- <input name="t_tell" type="text" class="phone" /> - <input name="tt_tell" type="text" class="phone"/>
 								</p>
 							</div>
-							<div class="btnC"><a href="#"><img src="/img/member/btn_confirm2.gif" alt="확인"></a></div>
+							<div class="btnC"><button><img src="/img/member/btn_confirm2.gif" alt="확인"></button></div>
 						</div>
+						</form>
+
 						<div class="right">
 							<h4 class="mgb30"><img src="/img/member/h4_ipin02.gif" alt="아이핀인증" /></h4>
 							<div class="ipinCheck ipinPW mgb20">
@@ -147,19 +199,7 @@
 			
 		</div>
 		<div class="underBlank"></div>
-		<div id="footer">
-			<p class="logo_footer"><img src="/img/integrate/logo_footer.gif" alt="해커스패스" /></p>
-			<div class="s>
-				<p class="policy">
-					<a href="#"><img src="/img/integrate/footer_icon01.gif" alt="이용약관" /></a>
-					<img src="/img/integrate/footer_iconbar.gif" alt="" class="bar" />
-					<a href="#"><img src="/img/integrate/footer_icon02.gif" alt="개인정보취급방침" /></a>
-					<img src="/img/integrate/footer_iconbar.gif" alt="" class="bar" />
-					<a href="#"><img src="/img/integrate/footer_icon03.gif" alt="제휴문의" /></a>
-				</p>
-				<address><img src="/img/integrate/address.gif" alt="서울시 서초구 서초동 1316-15 현대성우빌딩 203호|TEL.02-554-7272|FAX.02-554-0551|사업자등록번호 120-87-09984|(주)챔프스터디 대표이사.장경원|개인정보관리책임자.김병철|COPYRIGHT ⓒ 2012 HACKERSPASS ALL RIGHTS RESERVED" /></address>
-			</div>
-		</div>
+		<?php include("./footer.php");?>
 	</div>
 </body>
 </html>

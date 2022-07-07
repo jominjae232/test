@@ -21,6 +21,9 @@ if($row['cnt'] == 0) {
 	if($type == 2 && isset($_POST['f_t_tell'])) {
 		$p_tell = $_POST['f_f_tell']."-".$_POST['f_t_tell']."-".$_POST['f_tt_tell'];
 	}
+	if($type == 1) {
+		$p_tell = '';
+	}
 
 	if(isset($_POST['sms_ok'])) {
 		$sms_ok = $_POST['sms_ok'];
@@ -29,19 +32,20 @@ if($row['cnt'] == 0) {
 	$jobs = $_POST['jobs'];
 
 	$sql_common = "insert into `member_table`";
-	$sql_insert = "(mb_id, mb_name, mb_nick, mb_birthday, mb_gender, mb_mail, mb_sms_ok, mb_parent_tell, mb_job, mb_password)";
+	$sql_insert = "(mb_id, mb_name, mb_nick, mb_birthday, mb_gender, mb_mail, mb_tell, mb_sms_ok, mb_parent_tell, mb_job, mb_password)";
 	$sql_values = "values (";
 
-	$sql_val = "'".$mb_id."', '".$mb_name."', '".$mb_nick."', '".$birth_day."', '".$mb_gender."', '".$mail."', '".$sms_ok."', '".$p_tell."', '".$jobs."', '".$pass."'";
+	$sql_val = "'".$mb_id."', '".$mb_name."', '".$mb_nick."', '".$birth_day."', '".$mb_gender."', '".$mail."', '".$tell."', '".$sms_ok."', '".$p_tell."', '".$jobs."', '".$pass."'";
 
 	$sql_values_end = " ); ";
 
 	$sql = $sql_common." ".$sql_insert." ".$sql_values." ".$sql_val." ".$sql_values_end;
 
-	echo $sql;
+	//echo $sql;
 
 	
 	mysqli_query($db,$sql);
+
 	mysqli_close($db);
 
 	session_start();

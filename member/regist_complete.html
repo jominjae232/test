@@ -1,13 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>해커스패스 통합사이트</title>
-<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<link rel="stylesheet"  type="text/css" href="/css/default.css" />
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript" src="/js/integrate.js"></script>
-</head>
+<?php include("./header.php");?>
 <?php
 session_start();
 //var_dump($_SESSION);
@@ -84,19 +77,7 @@ session_start();
 			</div>
 		</div>
 		<div class="underBlank"></div>
-		<div id="footer">
-			<p class="logo_footer"><img src="/img/integrate/logo_footer.gif" alt="해커스패스" /></p>
-			<div>
-				<p class="policy">
-					<a href="#"><img src="/img/integrate/footer_icon01.gif" alt="이용약관" /></a>
-					<img src="/img/integrate/footer_iconbar.gif" alt="" class="bar" />
-					<a href="#"><img src="/img/integrate/footer_icon02.gif" alt="개인정보취급방침" /></a>
-					<img src="/img/integrate/footer_iconbar.gif" alt="" class="bar" />
-					<a href="#"><img src="/img/integrate/footer_icon03.gif" alt="제휴문의" /></a>
-				</p>
-				<address><img src="/img/integrate/address.gif" alt="서울시 서초구 서초동 1316-15 현대성우빌딩 203호|TEL.02-554-7272|FAX.02-554-0551|사업자등록번호 120-87-09984|(주)챔프스터디 대표이사.장경원|개인정보관리책임자.김병철|COPYRIGHT ⓒ 2012 HACKERSPASS ALL RIGHTS RESERVED" /></address>
-			</div>
-		</div>
+		<?php include("./footer.php");?>
 	</div>
 </body>
 </html>
