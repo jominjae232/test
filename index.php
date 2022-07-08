@@ -38,6 +38,50 @@ session_start();
 ?>
 <body>
 
+<?php if(isset($_SESSION['mb_name']) && isset($_SESSION['mb_id'])) { ?>
+<nav>
+    <a href="./index.php" alt="해커스 패스닷컴"><h1 style="font-size:20px; padding:20px;">해커스 패스닷컴</h1></a>
+    <ul class="menu">
+        <li><a href="./member/modify.html" alt="개인정보수정">개인정보수정</a></li>
+        <li><a href="./member/secession.html" alt="회원탈퇴">회원탈퇴</a></li>
+    </ul>
+</nav>
+<?php } else { ?>
+<nav>
+    <a href="./index.php" alt="해커스 패스닷컴"><h1 style="font-size:20px; padding:20px;">해커스 패스닷컴</h1></a>
+    <ul class="menu">
+        <li><a href="#dialog"  name="modal" alt="로그인">로그인</a></li>
+        <li><a href="./member/regist_step_01.html" alt="회원가입">회원가입</a></li>
+    </ul>
+</nav>
+<?php } ?>
+
+<style class="text/css">
+    nav{ 
+        width:200px; 
+        background-color:#eee; 
+        border-right:1px solid #ddd;
+        /* height:100% 그냥 적용 안됨. 부모개념이 있어야 채워질 수 있음 */
+
+        position:fixed; /*공중에 떠서 공간을 차지하지 않음*/
+        height:100% /*fixed를 해서 높이 100%가 가능해짐*/
+    }
+    h1{padding:20px; }
+    .menu {}
+    .menu li {}
+
+    /*메뉴*/
+    .menu li a {
+        height:30px;
+        line-height:30px;
+        display:block;
+        padding:0 20px;
+        font-size:12px;
+        color:#555;
+    }
+    .menu li a:hover { background-color:yellowgreen; color:white;}
+</style>
+
 <div id="wrapper">
 
 <?php
@@ -71,22 +115,21 @@ if(!isset($_SESSION['mb_name']) && isset($_SESSION['mb_id'])) {
 		<a href="http://www.hackers.co.kr/Html/S_Toeic/index.html?id=B_TOEIC_QA&no=469515" target="_blank" style="margin-left:27px;"><img src="/img/integrate/top_emblem.gif" alt="브랜드대상" /></a>
 	</p>
 	<div class="topmenu">
-		<?php if(isset($_SESSION["mb_id"]) == '' || isset($_SESSION["mb_name"]) == '') { ?>
+		<?php if(!isset($_SESSION["mb_id"]) || !isset($_SESSION["mb_name"])) { ?>
 		<a href="#dialog" name="modal"><img src="/img/integrate/top_icon01.gif" alt="로그인" /></a>
 			<img src="/img/integrate/top_iconbar.gif" alt="|" class="bar" />
 		<a href="./member/regist_step_01.html"><img src="/img/integrate/top_icon02.gif" alt="회원가입" /></a>
 			<img src="/img/integrate/top_iconbar.gif" alt="|" class="bar" />
-		<?php } else if($_SESSION['mb_id'] != '' && $_SESSION['mb_name'] != '') { ?>
-		<button onclick="log_out()">로그아웃</button>
+		<?php } else if(isset($_SESSION['mb_id']) && isset($_SESSION['mb_name'])) { ?>
 
-			<script class="text/javascript">
-				function log_out() {
-					location.href="./log_out.php";
-				}
-			</script>
+		<a href="./log_out.php">
+			<img src="/img/integrate/top_icon01_1.gif" alt="로그아웃" />
+		</a>
+
+		<a href="./member/modify.html"><img src="/img/integrate/top_icon02_1.gif" alt="정보수정" /></a>
 		<?php } ?>
 		
-		<a href="#">
+		<a href="./index.php">
 			<img src="/img/integrate/top_icon03.gif" alt="홈" /></a>
 	</div>
 </div>

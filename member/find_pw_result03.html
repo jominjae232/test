@@ -21,7 +21,7 @@ session_start();
 			<?php
 			$common = "SELECT * FROM member_table";
 			$where = "WHERE mb_id = '".$_SESSION['mb_id']."';";
-			$sql = $common."".$where;
+			$sql = $common." ".$where;
 
 			$result = mysqli_query($db,$sql);
 			$row = mysqli_fetch_array($result);

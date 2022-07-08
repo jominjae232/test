@@ -89,9 +89,15 @@
 									- <input type="text" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" name="t_tell" maxlength="4" class="phone" /> - <input type="text" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" name="tt_tell" maxlength="4" class="phone"/>
 								</p>
 							</div>
-							<div class="btnC"><button><img src="/img/member/btn_confirm2.gif" alt="확인"></button></div>
+							<div class="btnC"><button onclick="chk_val_type1()"><img src="/img/member/btn_confirm2.gif" alt="확인"></button></div>
 						</div>
 						</form>
+
+						<script class="text/javascript">
+							function chk_val_type1() {
+								
+							}
+						</script>
 
 						<div class="right">
 							<h4 class="mgb30"><img src="/img/member/h4_ipin02.gif" alt="아이핀인증" /></h4>
@@ -115,7 +121,7 @@
 
 							<script class="text/javascript">
 								function page_mail () {
-									location.href="./find_id_mail.html"
+									location.href="./find_id_mail.html";
 								}
 							</script>
 							

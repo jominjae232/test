@@ -259,11 +259,22 @@
 									<select name="f_tell">
 										<option value=<?php if(isset($_POST['first_tell'])) { echo $_POST['first_tell']; } ?>><?php if(isset($_POST['first_tell'])) { echo $_POST['first_tell']; }?></option>
 									</select>
-									- <input type="text" required class="phone" name="t_tell" readonly value=<?php if(isset($_POST['two_tell'])) { echo $_POST['two_tell']; }?>>
-									- <input name="tt_tell"readonly type="text" required class="phone" value=<?php if(isset($_POST['third_tell'])) { echo $_POST['third_tell']; }?> >
+
+									- <input type="text" onkeyup="SetNum(this)" required class="phone" maxlength="4" name="t_tell" readonly value=<?php if(isset($_POST['two_tell'])) { echo $_POST['two_tell']; }?>>
+
+									- <input name="tt_tell" onkeyup="SetNum(this)" readonly type="text" maxlength="4" required class="phone" value=<?php if(isset($_POST['third_tell'])) { echo $_POST['third_tell']; }?>>
 									<p class="tip">* 패스닷컴에서 제공하는 유용한 정보를 받아 볼 수 있습니다.</p>
 								</td>
 							</tr>
+
+							<script class="text/javascript">
+							function SetNum(obj){
+								val=obj.value;
+								re=/[^0-9]/gi;
+								obj.value=val.replace(re,"");							
+							}
+							</script>
+
 							<?php
 							if(isset($_POST['type'])) {
 							if($_POST['type'] == 2) { ?>
@@ -290,14 +301,14 @@
 										<option value="063">063</option>
 										<option value="064">064</option>
 									</select>
-									- <input type="text" name="f_t_tell" value="" required class="phone">
-									- <input type="text" name="f_tt_tell" value="" required class="phone">
+									- <input type="text"  onkeyup="SetNum(this)" maxlength="4" name="f_t_tell" value="" required class="phone">
+									- <input type="text"  onkeyup="SetNum(this)" maxlength="4" name="f_tt_tell" value="" required class="phone">
 								</td>
 							</tr>
 							<?php 
 							}
 							} ?>
-							<tr>
+							<!-- <tr>
 								<th><span class="must">집전화번호</span></th>
 								<td>
 									<select>
@@ -305,10 +316,10 @@
 									</select>
 									- <input type="text" class="phone"> - <input type="text" class="phone">
 								</td>
-							</tr>
+							</tr> -->
 							<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
-							<tr>
+							<!-- <tr>
 								<th><span class="must">주소</span></th>
 								<td>
 									<p>
@@ -319,16 +330,16 @@
 									<p style="margin:5px 0;"><input type="text" id="zipaddr" placeholder="기본주소" class="address"></p>
 									<p><input type="text" placeholder="상세주소" class="address"></p>
 								</td>
-							</tr>
-							<script class="text/javascript">
+							</tr> -->
+							<!-- <script class="text/javascript">
 								function place() {
 									var option = "width = 500, height = 500, top = 100, left = 200, location = no"
 									window.open("http://localhost/member/search_zip_pop.html", "주소검색", option);
 								}
-							</script>
+							</script> -->
 							
 							<!-- 다음 주소 검색 코드 -->
-							<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+							<!-- <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 							<script class="text/javascript">
 							function zip_chk() {
 								new daum.Postcode({
@@ -339,7 +350,7 @@
 									}
 								}).open();
 							}
-							</script>
+							</script> -->
 						</tbody>
 					</table>
 					<h3 class="mgb10"><img src="/img/member/h3_choiceInfo.gif" alt="선택정보입력" /></h3>

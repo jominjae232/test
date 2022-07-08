@@ -20,9 +20,9 @@
 					<h3 class="mgb10"><img src="/img/member/h3_id02.gif" alt="아이디 결과" /></h3>
 					<div class="findID_wrap mgb50">
 						<p>
-							<strong class="blue"><?=$_POST['mb_name']?></strong>
+							<strong class="blue"><?php if(isset($_POST['mb_name'])) { echo $_POST['mb_name']; }?></strong>
 							<img src="/img/member/text_id01.gif" alt="회원님의 통합아이디는" style="margin:0 5px;"/>
-							<strong class="blue"><?=$_POST['mb_id']?></strong>
+							<strong class="blue"><?php if(isset($_POST['mb_id'])) { echo $_POST['mb_id']; }?></strong>
 							<img src="/img/member/text_id02.gif" alt="입니다" />
 						</p>
 						<a href="../index.php#dialog"><img src="/img/member/btn_login_gray.gif" alt="로그인하기" /></a>
